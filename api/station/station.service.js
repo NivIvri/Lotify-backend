@@ -33,13 +33,13 @@ async function query(filterBy = {}) {
 //}
 
 
-async function add(station,user) {
+async function add(station, user) {
     try {
-      let  stationToAdd = {
+        let stationToAdd = {
             ...station
-            ,createdBy:{
-                id:user._id,
-                fullname:user.fullname,
+            , createdBy: {
+                id: user._id,
+                fullname: user.fullname,
             }
         }
 
@@ -109,10 +109,9 @@ async function getByUser(userId) {
             return await getById(stationId)
         })
         stations = await Promise.all(stations)
-
         createdStation = await collection.find({ 'createdBy.id': (userId) }).toArray()
         likedStation = await collection.findOne({ 'genre':"likedTracks" })
-        stations= stations.concat(createdStation)
+        stations = stations.concat(createdStation)
         stations.push(likedStation)
         return stations
     }
